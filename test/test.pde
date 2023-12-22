@@ -1,6 +1,8 @@
 import processing.opengl.*;
 
-PShape model;
+PShape target_L;
+PShape target_R;
+PShape bullet;
 PShape bg;
 
 PImage mosin;
@@ -10,12 +12,39 @@ float cameraX, cameraY, cameraZ;
 
 float cameraAngX, cameraAngY, cameraAngZ;
 
+float rollX, rollY, rollZ;
+
 float angleXZ, angleY;
 
 float picSZ = 2.0;
 
+float high;
+
+float bX;
+float bY = 10000;
+float bZ = 0;
+
+float targetX;
+float targetY;
+float targetZ;
+
+String text;
+
+final float speed = 10;     
+
+final float maxbullet = 5;
+
+int rpm = 30;
+
+int score = 0;
+
+//increment brothers
 int i = 0;
 int j = 0;
+int target_locate = 0;
+int repeat = 0;
+int rate = 0;
+int pointcool;
 
 void setup(){
   
@@ -32,7 +61,7 @@ void setup(){
   
   camera(cameraX, cameraY, cameraZ, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0);
   
-  filter(BLUR, 3);
+  //filter(BLUR, 3);
   
   
   /*
@@ -45,15 +74,21 @@ void setup(){
 void draw(){
   
   j += 1;
+  rate += 1;
   
   draw_space();  //setup space
   
-  move();        //control camera
+  move();
   
   UI();          //draw UI
   
+  score();
+  
   draw_models();
   
+  fire();
+  
+  firing();
 }
 
 void move(){
@@ -64,10 +99,11 @@ void move(){
     if(key == 'd' || key == 'D')cameraY += 10;
     if(keyCode == SHIFT)cameraZ -= 10;
     if(key == ' ')cameraZ += 10;
+    if(key == 'r' || key == 'R')rate = 0;
   }
   
   angleXZ = asin((mouseY - height/2)/(float)height);
-  angleY = acos((mouseX - width/2)/(float)width/2);
+  angleY = acos((mouseX - width/2)/(float)height/2);
   
   cameraAngX = cameraX + ((float)height * cos(angleXZ));
   cameraAngY = cameraY + ((float)width * cos(angleY));
@@ -82,7 +118,7 @@ void move(){
   cameraAngZ = -mouseY + height/2;
   */
   
-  camera(cameraX, cameraY, cameraZ, cameraAngX, cameraAngY, cameraAngZ, 0.0, 0.0, -1.0);
+  camera(cameraX, cameraY, cameraZ+50, cameraAngX, cameraAngY, cameraAngZ, 0.0, 0.0, -1.0);
 }
 
 void draw_space(){
@@ -97,6 +133,7 @@ void draw_space(){
 }
 
 void UI(){
+  /*
   beginShape();
   texture(mosin); 
   vertex(cameraAngX-(512 * picSZ),cameraAngY-(288 * picSZ),cameraAngZ,0,0); //V1
@@ -104,9 +141,11 @@ void UI(){
   vertex(cameraAngX+(512 * picSZ),cameraAngY+(288 * picSZ),cameraAngZ,1024,576); //V3
   vertex(cameraAngX-(512 * picSZ),cameraAngY+(288 * picSZ),cameraAngZ,0,576);
   endShape();
+  */
 }
 
 void draw_models(){
+  
   /*
   pushMatrix();
   rotateX(PI/2);
@@ -115,24 +154,46 @@ void draw_models(){
   popMatrix();
   */
   
+  /*
   beginShape();
-  texture(mosin); 
-  vertex(cameraAngX-(512 * picSZ),cameraAngY-(288 * picSZ),cameraAngZ,0,0); //V1
-  vertex(cameraAngX+(512 * picSZ),cameraAngY-(288 * picSZ),cameraAngZ,1024,0); //V2
-  vertex(cameraAngX+(512 * picSZ),cameraAngY+(288 * picSZ),cameraAngZ,1024,576); //V3
-  vertex(cameraAngX-(512 * picSZ),cameraAngY+(288 * picSZ),cameraAngZ,0,576);
+  texture(chain); 
+  vertex(-371, 602, -371, 602);
+  vertex(371, 602, 371, 602);
+  vertex(371, -602, 371, -602);
+  vertex(-371, -602, -371, -602);
   endShape();
+  */
 }
 
 void load(){
-  model = loadShape("naotiki_mh.obj");
-  model.scale(600.0);
+  target_L = loadShape("flying_naotiki.obj");
+  target_L.scale(30.0);
+  
+  target_R = loadShape("flying_naotiki_right.obj");
+  target_R.scale(30.0);
+  
   /*
+  bullet = loadShape("bullet.obj");
+  bullet.scale(10.0);
+  */
+  
   bg = loadShape("HDR.obj");
   bg.scale(100.0);
-  */
+  
   mosin = loadImage("fps_mosin_dot.png");
   textureMode(IMAGE);
+  
   chain = loadImage("chainsawman.png");
   textureMode(IMAGE);
+}
+
+void mousePressed(){
+  if(mouseButton == LEFT){
+    if(rate >= rpm){//oku, up, left
+      rate = 0;
+      bY = 0;
+      bZ = 100;
+      score += 0;
+    }
+  }
 }
