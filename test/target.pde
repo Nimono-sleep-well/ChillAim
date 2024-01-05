@@ -8,14 +8,14 @@ void firing(){
   if(repeat == 0){
     
     targetX = -target_locate*10+1000;
-    targetY = high;
+    targetY = high - 50;
     targetZ = -200;
     
     pushMatrix();
     rotateX(PI/2);
     rotateY(-PI/2);
     translate(targetX, targetY, targetZ); //LEFT, UP, FRONT
-    sphere(100);
+    //sphere(100);
     shape(target_L);
     popMatrix();
   }else{
@@ -28,7 +28,7 @@ void firing(){
     rotateX(PI/2);
     rotateY(-PI/2);
     translate(targetX, targetY, targetZ); //LEFT, UP, FRONT
-    sphere(100);
+    //isphere(100);
     shape(target_R);
     popMatrix();
   }

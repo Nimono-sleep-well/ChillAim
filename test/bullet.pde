@@ -1,15 +1,24 @@
 void fire(){
-  bX = speed * rate;
-  pushMatrix();
-  rotateX(PI/2);
-  translate(bX, bY, bZ);
-  //shape(bullet);
-  sphere(10);
-  popMatrix();
   
-  if((bX >= -targetZ - 100 && bX <= -targetZ + 100) && (bY >= targetY - 100 && bX <= targetY + 100) && (bZ >= targetX - 100 && bZ <= targetX + 100)){
+  cursorX = 200;
+  float ratio = cursorX / cameraAngX;
+  cursorY = cameraAngY * ratio;
+  cursorZ = cameraAngZ * ratio;
+  
+  translate(cursorX, cursorY, cursorZ);//BACK, RIGHT, UP
+  //translate(0, 0, 0);
+  sphere(10);
+  //translate(0, 0, 0);
+  translate(-cursorX, -cursorY, -cursorZ);
+  
+  if(cursorY >= -targetX - 50 && cursorY <= -targetX + 50 && cursorZ >= targetY -50 && cursorZ <= targetY +50){
     score += 10;
   }
+  /*
+  if(cursorY- >= -targetX - 50 && cursorY <= -targetX + 50){
+    score += 10;
+  }
+  */
 }
 void reload(){
   //todo

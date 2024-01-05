@@ -24,11 +24,16 @@ float bX;
 float bY = 10000;
 float bZ = 0;
 
+float cursorX;
+float cursorY;
+float cursorZ;
+
 float targetX;
 float targetY;
 float targetZ;
 
-String text;
+String text_score;
+String text_info;
 
 final float speed = 10;     
 
@@ -86,8 +91,6 @@ void draw(){
   
   draw_models();
   
-  fire();
-  
   firing();
 }
 
@@ -117,16 +120,17 @@ void move(){
   cameraAngY = mouseX - width/2;
   cameraAngZ = -mouseY + height/2;
   */
+  text_info = "x" + cameraAngX + "\ny" + cameraAngY + "\nz" + cameraAngZ;
   
-  camera(cameraX, cameraY, cameraZ+50, cameraAngX, cameraAngY, cameraAngZ, 0.0, 0.0, -1.0);
+  camera(cameraX, cameraY, cameraZ, cameraAngX, cameraAngY, cameraAngZ, 0.0, 0.0, -1.0);
 }
 
 void draw_space(){
   background(255);
   stroke(50);
   for(int i = -500;i <= 500;){
-    line(-500, i, 0, 500, i, 0);
-    line(i, -500, 0, i, 500, 0);
+    line(-500, i, -50, 500, i, -50);
+    line(i, -500, -50, i, 500, -50);
     i += 20;
   }
   lights();
@@ -142,6 +146,11 @@ void UI(){
   vertex(cameraAngX-(512 * picSZ),cameraAngY+(288 * picSZ),cameraAngZ,0,576);
   endShape();
   */
+  translate(cameraAngX, cameraAngY, cameraAngZ);
+  sphere(5);
+  translate(-cameraAngX, -cameraAngY, -cameraAngZ);
+  fill(0);
+  text("Hello World!", 100, 100);
 }
 
 void draw_models(){
@@ -177,6 +186,7 @@ void load(){
   bullet.scale(10.0);
   */
   
+  /*
   bg = loadShape("HDR.obj");
   bg.scale(100.0);
   
@@ -185,15 +195,14 @@ void load(){
   
   chain = loadImage("chainsawman.png");
   textureMode(IMAGE);
+  */
 }
 
 void mousePressed(){
   if(mouseButton == LEFT){
     if(rate >= rpm){//oku, up, left
       rate = 0;
-      bY = 0;
-      bZ = 100;
-      score += 0;
+      fire();
     }
   }
 }
