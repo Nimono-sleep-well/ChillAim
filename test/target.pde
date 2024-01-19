@@ -4,6 +4,7 @@ void firing(){
     repeat = (int)random(2);
     high = (int)random(100);
     target_locate = 0;
+    targetcount += 1;
   }
   if(repeat == 0){
     
@@ -15,8 +16,8 @@ void firing(){
     rotateX(PI/2);
     rotateY(-PI/2);
     translate(targetX, targetY, targetZ); //LEFT, UP, FRONT
-    //sphere(100);
-    shape(target_L);
+    sphere(40);
+    //shape(target_L);
     popMatrix();
   }else{
     
@@ -28,8 +29,8 @@ void firing(){
     rotateX(PI/2);
     rotateY(-PI/2);
     translate(targetX, targetY, targetZ); //LEFT, UP, FRONT
-    //isphere(100);
-    shape(target_R);
+    sphere(40);
+    //shape(target_R);
     popMatrix();
   }
 }
