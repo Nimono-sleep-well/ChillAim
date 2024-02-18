@@ -37,7 +37,7 @@ void UI(){
 }
 
 void load(){
-  target_L = loadShape("flying_naotiki.obj");
+  target_L = loadShape("flying_naotiki_left.obj");
   target_L.scale(30.0);
   
   target_R = loadShape("flying_naotiki_right.obj");
@@ -60,7 +60,7 @@ void load(){
 
 void mousePressed(){
   if(mouseButton == LEFT){
-    if(rate >= rpm){//oku, up, left
+    if(rate >= rpm){//back, up, left
       rate = 0;
       fire();
     }
@@ -72,7 +72,6 @@ void keyPressed(){
     display += 1;
     j=0;
   }
-  //if(display == 4)display = 3;
   if(display == 1)opening.jump(0);
 }
 
@@ -83,17 +82,15 @@ void calc(){
 }
 
 void dispScore(){
-  int divide = 10;
-  for(i = 10;score/i != 0;i*=10){
-    digit = i;
-    println("digit!");
+  String point = String.valueOf(score);//score:int -> point:String
+  String[] result = new String[point.length()];
+  for(i=0;i<point.length();i++){
+    result[i] = String.valueOf(point.charAt(i));
+    print(i);
+    print(":");
+    println(result[i]);
   }
-  for(i = 0;i < digit;i++){
-    for(int k = 0;k < i;k++){
-      divide *= 10;
-    }
-    println("divide!");
-    score_img[i] = ((score % divide) - (score % (divide/10)))/(divide/10);
-    image(number[score_img[i]], 1000 - i*300, -240);
+  for(i = 0;i <point.length();i++){
+    image(number[Integer.parseInt(result[i])], 100 + i*300, -240);
   }
 }

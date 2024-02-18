@@ -113,7 +113,6 @@ void firstset(){
 void opening(){
   background(0);
   camera(0.01, 0, 935, 0, 0, 0, 0, 0, -1);
-  //move();
   opening.read();
   
   rotateZ(radians(-90));
@@ -131,7 +130,6 @@ void opening(){
 void startDisp(){
   background(0);
   camera(0.01, 0, 935, 0, 0, 0, 0, 0, -1);
-  //move();
   mv.read();
   
   rotateZ(radians(-90));
@@ -161,16 +159,14 @@ void game(){
   if(j <= 300){
     rotateY(radians(-90));
     rotateZ(radians(90));
-    text(5-j/60, 0, -50, -200); //right, down, temae
-    //text(text_info, 0, -200, -200);
+    text(5-j/60, 0, -50, -200); //right, down, front
     rotateZ(radians(-90));
     rotateY(radians(90));
   }
   else if(j > 300 && j <= 360){
     rotateY(radians(-90));
     rotateZ(radians(90));
-    text("GAME START", 0, -50, -200); //right, down, temae
-    //text(text_info, 0, -200, -200);
+    text("GAME START", 0, -50, -200); //right, down, front
     rotateZ(radians(-90));
     rotateY(radians(90));
   }
@@ -185,7 +181,7 @@ void result(){
   calc();
   move();
   fill(0);
-  translate(100, 0, 50);
+  translate(200, 0, 50);
   scale(0.1);
   rotateY(radians(-90));
   rotateZ(radians(90));
@@ -193,15 +189,10 @@ void result(){
   //sphere(30);
   image(scoreboard, -960, -540);
   scale(0.3);
-  if(score_img[0] >= 1)image(number[score_img[0]], 100, -240);
-  /*
-  image(number[score_img[1]], 700, -240);
-  image(number[score_img[2]], 1000, -240);
-  */
   dispScore();
   hint(ENABLE_DEPTH_TEST);
   rotateZ(radians(-90));
   rotateY(radians(90));
   scale(20);
-  translate(100, 0, -50);
+  translate(200, 0, -50);
 }

@@ -4,7 +4,7 @@ void firing(){
     repeat = (int)random(2);
     high = (int)random(100);
     target_locate = 0;
-    targetcount++;
+    targetcount ++;
     pointAfter = score;
     if(pointBefore == pointAfter)miss++;
     pointBefore = score;
@@ -12,15 +12,13 @@ void firing(){
   if(repeat == 0){
     
     targetX = (-target_locate-targetcount)*10+1000;
-    //targetY = high - 50;
-    targetY = 0;
+    targetY = high - 50;
     targetZ = -200;
     
     pushMatrix();
     rotateX(PI/2);
     rotateY(-PI/2);
     translate(targetX, targetY, targetZ); //LEFT, UP, FRONT
-    //sphere(100);
     shape(target_L);
     popMatrix();
   }else{
@@ -34,7 +32,6 @@ void firing(){
     rotateX(PI/2);
     rotateY(-PI/2);
     translate(targetX, targetY, targetZ); //LEFT, UP, FRONT
-    //isphere(100);
     shape(target_R);
     popMatrix();
   }
