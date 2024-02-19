@@ -5,6 +5,7 @@ PShape target_L;
 PShape target_R;
 PShape bullet;
 PShape bg;
+PShape stage;
 
 PImage mosin;
 PImage chain;
@@ -79,7 +80,7 @@ void setup(){
   
   load();
   
-  background(255);
+  background(#999999);
   fullScreen(P3D);
   translate(width/2, height/2, 0);
   

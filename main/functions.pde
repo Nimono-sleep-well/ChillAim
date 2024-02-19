@@ -18,13 +18,32 @@ void move(){
 }
 
 void draw_space(){
-  background(255);
+  background(#999999);
   stroke(50);
   for(int i = -500;i <= 500;){
     line(-500, i, -50, 500, i, -50);
     line(i, -500, -50, i, 500, -50);
     i += 20;
   }
+  translate(0, 0, -50);
+  rotateX(radians(90));
+  rotateY(radians(-90));
+  pushMatrix();
+  shape(stage);
+  popMatrix();
+  rotateX(radians(-90));
+  rotateY(radians(90));
+  translate(0, 0, 50);
+  /*
+  fill(#777777);
+  beginShape();
+  vertex(-500, -500, -100);
+  vertex(500, -500, -100);
+  vertex(500, 500, -100);
+  vertex(-500, 500, -100);
+  endShape(CLOSE);
+  fill(#555555);
+  */
   lights();
 }
 
@@ -42,6 +61,9 @@ void load(){
   
   target_R = loadShape("flying_naotiki_right.obj");
   target_R.scale(30.0);
+  
+  stage = loadShape("ChillAim.obj");
+  stage.scale(60.0);
   
   mv = new Movie(this, "ChillAimLogo.mp4");
   mv.loop();
